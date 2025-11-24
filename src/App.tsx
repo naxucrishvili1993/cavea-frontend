@@ -1,19 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import NotFound from "./pages/NotFound";
-import InventoriesPage from "./pages/InventoryPage";
+import Inventories from "./pages/Inventories";
 import InventoryEditPage from "./pages/InventoryEditPage";
+import AddInventory from "./pages/AddInventory";
+import { Toaster } from "./components/ui/sonner";
+import Statistics from "./pages/Statistics";
 
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/inventories" element={<InventoriesPage />} />
+					<Route path="/inventories" element={<Inventories />} />
 					<Route path="/inventories/:id" element={<InventoryEditPage />} />
+					<Route path="/add-inventory" element={<AddInventory />} />
+					<Route path="/statistics" element={<Statistics />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</BrowserRouter>
+			<Toaster />
 		</>
 	);
 }

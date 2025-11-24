@@ -3,9 +3,23 @@ import type { Inventory } from "../types/inventory";
 
 const API = "http://localhost:5000"; // change if needed
 
-export const getInventories = async (): Promise<Inventory[]> => {
-	const res = await axios.get(`${API}/inventories`);
-	return res.data.inventories;
+export const getInventories = async ({
+	page,
+	locationId,
+	sortBy = "name",
+	order = "ASC",
+}: {
+	page: string;
+	locationId: string;
+	sortBy?: "name" | "price" | "location";
+	order?: "ASC" | "DESC";
+}) => {
+	const res = await axios.get(
+		`${API}/inventories?page=${page}${
+			locationId !== "all" ? `&locationId=${locationId}` : ""
+		}&sortBy=${sortBy}${order ? `&order=${order.toUpperCase()}` : ""}`
+	);
+	return res.data;
 };
 
 export const getInventory = async (id: number) => {
@@ -24,5 +38,5 @@ export const updateInventory = async (id: number, data: Partial<Inventory>) => {
 };
 
 export const deleteInventory = async (id: number) => {
-	return axios.delete(`${API}/inventories/${id}`);
+	return await axios.delete(`${API}/inventories/${id}`);
 };
