@@ -23,6 +23,7 @@
 		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
+		// Build დროს გააკომენტარეთ ეს ხაზი
 		"ignoreDeprecations": "6.0",
 		"baseUrl": ".",
 		"paths": {

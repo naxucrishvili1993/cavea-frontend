@@ -7,24 +7,21 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQueryParams } from "@/hooks/useQueryParams";
 
 export default function SortingFilters() {
-	const [searchParams] = useSearchParams();
-	const navigate = useNavigate();
-	const pathname = window.location.pathname;
+	const { getParam, updateParam } = useQueryParams();
 
-	const currentSort = searchParams.get("sort") || "name";
-	const currentOrder = searchParams.get("order") || "asc";
+	const currentSort = getParam("sort", "name");
+	const currentOrder = getParam("order", "asc");
 
 	function handleValueChange(value: string): void {
 		if (!value) return;
 		if (`${currentSort}-${currentOrder}` === value) return;
 
 		const [sort, order] = value.split("-");
-		searchParams.set("sort", sort);
-		searchParams.set("order", order);
-		navigate(`${pathname}?${searchParams.toString()}`);
+		updateParam("sort", sort);
+		updateParam("order", order);
 	}
 
 	return (

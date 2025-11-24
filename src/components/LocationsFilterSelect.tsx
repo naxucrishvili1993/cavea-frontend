@@ -1,6 +1,3 @@
-import { getLocations } from "@/api/locations";
-import type { Location } from "@/types/location";
-import { useEffect, useState } from "react";
 import {
 	Select,
 	SelectContent,
@@ -10,41 +7,18 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { useFetchLocations } from "@/hooks/useFetchLocations";
+import { useQueryParams } from "@/hooks/useQueryParams";
 
 export default function LocationsFilterSelect() {
-	const [searchParams] = useSearchParams();
-	const navigate = useNavigate();
-	const [locations, setLocations] = useState<Location[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
-
-	const currentLocationId = searchParams.get("locationId") || "all";
-
-	useEffect(() => {
-		async function fetchLocations() {
-			setLoading(true);
-			try {
-				const data = await getLocations();
-				setLocations(data.locations);
-			} catch (e) {
-				console.error("Failed to fetch locations");
-				setLocations([]);
-			} finally {
-				setLoading(false);
-			}
-		}
-		fetchLocations();
-	}, []);
+	const { locations, loading } = useFetchLocations();
+	const { getParam, updateParam } = useQueryParams();
+	const currentLocationId = getParam("locationId", "all");
 
 	function handleValueChange(value: string): void {
-		if (value != currentLocationId) {
-			const pathname = window.location.pathname;
-			navigate(
-				`${pathname}?locationId=${value}&${searchParams
-					.toString()
-					.replace(`locationId=${currentLocationId}`, "")}`
-			);
+		if (value !== currentLocationId) {
+			updateParam("locationId", value);
 		}
 	}
 

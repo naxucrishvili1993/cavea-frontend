@@ -40,3 +40,8 @@ export const updateInventory = async (id: number, data: Partial<Inventory>) => {
 export const deleteInventory = async (id: number) => {
 	return await axios.delete(`${API}/inventories/${id}`);
 };
+
+export const getLocationsAndInventoryCounts = async () => {
+	const res = await axios.get(`${API}/inventories/by-location`);
+	return res.data.inventoriesByLocation;
+};

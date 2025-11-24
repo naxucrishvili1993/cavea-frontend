@@ -3,5 +3,6 @@ export type Inventory = {
 	name: string;
 	description: string;
 	price: string | number;
+	locationId: number;
 	location: string;
 };

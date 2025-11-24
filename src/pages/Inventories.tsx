@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Inventory } from "../types/inventory";
 import { getInventories } from "../api/inventories";
 import { InventoryTable } from "@/components/InventoryTable";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
 export default function InventoriesPage() {
@@ -30,7 +30,7 @@ export default function InventoriesPage() {
 				setInventories(data.inventories);
 				setCount(data.total);
 				setError(null);
-			} catch (e) {
+			} catch {
 				setError("Failed to fetch inventories");
 				setInventories([]);
 			} finally {
@@ -48,13 +48,24 @@ export default function InventoriesPage() {
 				</div>
 			)}
 			{error && <p className="text-red-500">{error}</p>}
-			{!loading && !error && (
+			{!loading && !error && inventories.length > 0 ? (
 				<InventoryTable
 					inventories={inventories}
 					setInventories={setInventories}
 					count={count}
 					setCount={setCount}
 				/>
+			) : (
+				<>
+					<p className="text-center mt-20 text-gray-500">
+						No inventories found.
+					</p>
+					<Link
+						to="/add-inventory"
+						className="mt-4 block text-center underline">
+						Add a new inventory item
+					</Link>
+				</>
 			)}
 		</div>
 	);

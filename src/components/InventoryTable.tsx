@@ -43,17 +43,23 @@ export function InventoryTable({
 	return (
 		<div>
 			<div className="py-15 px-3 md:px-15 lg:px-30 lg:max-w-[1200px] lg:mx-auto">
-				<div className="flex justify-between">
-					<Link to="/add-inventory">
-						<Button className="mb-5">Add Inventory</Button>
-					</Link>
+				{/* first 2 buttons together */}
+				<div className="flex justify-between items-center mb-10">
+					<div className="flex gap-3">
+						<Link to="/add-inventory">
+							<Button>Add Inventory</Button>
+						</Link>
+						<Link to="/manage-locations">
+							<Button>Manage Locations</Button>
+						</Link>
+					</div>
 					<Link to="/statistics">
-						<Button className="mb-5">Statistics</Button>
+						<Button>Statistics</Button>
 					</Link>
 				</div>
-				<div className="flex items-center justify-between">
-					<h1 className="text-3xl mb-5 font-bold">Inventories</h1>
-					<div className="flex gap-5">
+				<div className="flex items-center justify-between mb-5">
+					<h1 className="text-2xl font-bold">Inventories</h1>
+					<div className="flex gap-2">
 						<LocationsFilterSelect />
 						<SortingFilters />
 					</div>
