@@ -42,7 +42,9 @@ export default function Statistics() {
 				</Link>
 			)}
 			{loading ? (
-				<Loader2 className="animate-spin" size={24} />
+				<div className="w-full h-dvh overflow-hidden flex justify-center items-center">
+					<Loader2 className="animate-spin" size={36} />
+				</div>
 			) : error ? (
 				<p className="text-red-500">{error}</p>
 			) : (

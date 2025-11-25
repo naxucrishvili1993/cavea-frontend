@@ -24,11 +24,7 @@ export default function LocationsFilterSelect() {
 
 	return (
 		<div>
-			{loading ? (
-				<Loader2 className="animate-spin" size={16} />
-			) : locations.length === 0 ? (
-				<p>No locations available</p>
-			) : (
+			{
 				<Select
 					defaultValue={currentLocationId}
 					onValueChange={handleValueChange}>
@@ -39,15 +35,17 @@ export default function LocationsFilterSelect() {
 						<SelectGroup>
 							<SelectLabel>Locations</SelectLabel>
 							<SelectItem value="all">All</SelectItem>
-							{locations.map((location) => (
-								<SelectItem value={location.id + ""}>
-									{location.address}
-								</SelectItem>
-							))}
+							{!loading &&
+								locations.length > 0 &&
+								locations.map((location) => (
+									<SelectItem value={location.id + ""}>
+										{location.address}
+									</SelectItem>
+								))}
 						</SelectGroup>
 					</SelectContent>
 				</Select>
-			)}
+			}
 		</div>
 	);
 }
