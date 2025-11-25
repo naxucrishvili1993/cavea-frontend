@@ -10,7 +10,7 @@ import {
 import { useQueryParams } from "@/hooks/useQueryParams";
 
 export default function SortingFilters() {
-	const { getParam, updateParam } = useQueryParams();
+	const { getParam, updateParams } = useQueryParams();
 
 	const currentSort = getParam("sort", "name");
 	const currentOrder = getParam("order", "asc");
@@ -20,8 +20,7 @@ export default function SortingFilters() {
 		if (`${currentSort}-${currentOrder}` === value) return;
 
 		const [sort, order] = value.split("-");
-		updateParam("sort", sort);
-		updateParam("order", order);
+		updateParams({ sort, order });
 	}
 
 	return (
